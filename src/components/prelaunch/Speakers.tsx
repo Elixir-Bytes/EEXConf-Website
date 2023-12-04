@@ -96,8 +96,8 @@ export function Speakers() {
             Speakers
           </h2>
           <p className="mb-4 mt-4 font-display text-2xl tracking-tight text-blue-900">
-            We'll be announcing speakers as they come in. Keep a look out and to
-            hear about the announcements immediately, sign up below.
+            {`We'll be announcing speakers as they come in. Keep a look out and to
+            hear about the announcements immediately, sign up below.`}
           </p>
           <form>
             <h3 className="text-lg font-semibold tracking-tight text-blue-900">

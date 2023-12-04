@@ -24,9 +24,9 @@ export function Hero() {
               events to follow all around Europe.
             </p>
             <p>
-              We're also keeping our energy footprint as low as possible and ask
+              {`We're also keeping our energy footprint as low as possible and ask
               that if you have to travel far, that you travel by train to the
-              event.
+              event.`}
             </p>
           </div>
           <Button href="#" className="mt-10 w-full sm:hidden">
