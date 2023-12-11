@@ -49,7 +49,7 @@ export function InterestForm() {
             </h3>
             {state?.successful && (
               <p>
-                Thanks for your interest. We'll get back to you when we have
+                Thanks for your interest. We will get back to you when we have
                 more information.
               </p>
             )}

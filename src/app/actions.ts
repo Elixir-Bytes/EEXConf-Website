@@ -1,7 +1,7 @@
 'use server'
 type ClientResponse = {
   status: number
-  body: object
+  body: null | object
   successful: boolean
 }
 export async function addInterest(
@@ -29,6 +29,7 @@ export async function addInterest(
 
     return { body, status: res.status, successful: res.ok }
   } catch (e) {
-    return { status: 500, body: e, successful: false }
+    console.log('Error while making Tito request:', e)
+    return { status: 500, body: null, successful: false }
   }
 }
