@@ -9,21 +9,15 @@ export async function addInterest(
   formData: FormData,
 ): Promise<ClientResponse> {
   const email = formData.get('email')
-  const url = 'https://api.tito.io/v3/eexconf/zagreb-2024/interested_users'
-  const apiToken = process.env.TITO_API_TOKEN
+  const url = '/api/register_interest/'
   try {
     const res = await fetch(url, {
       method: 'POST',
       headers: {
-        Authorization: `Token token=${apiToken}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        interested_user: {
-          email,
-        },
-      }),
+      body: JSON.stringify({ email }),
     })
     const body = await res.json()
 
