@@ -2,10 +2,32 @@
 import { useState } from 'react'
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
-import { addInterest } from '@/app/actions'
+type ClientResponse = {
+  status: number
+  body: null | object
+  successful: boolean
+}
 
-// @ts-expect-error
-import { experimental_useFormState as useFormState } from 'react-dom'
+async function addInterest(formData: FormData): Promise<ClientResponse> {
+  const email = formData.get('email')
+  const url = '/api/register_interest'
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    })
+    const body = await res.json()
+
+    return { body, status: res.status, successful: res.ok }
+  } catch (e) {
+    console.log('Error while making Tito request:', e)
+    return { status: 500, body: null, successful: false }
+  }
+}
 
 function ArrowRightIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -24,10 +46,18 @@ function ArrowRightIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 export function InterestForm() {
   const [email, setEmail] = useState<string>('')
-  const [state, formAction] = useFormState(addInterest, null)
-  if (state && !state.successful) {
-    console.error(`code: ${state.status} => ${JSON.stringify(state.body)}`)
+  const [response, setResponse] = useState<ClientResponse | null>(null)
+  if (response && !response.successful) {
+    console.error(
+      `code: ${response.status} => ${JSON.stringify(response.body)}`,
+    )
   }
+
+  const onSubmit = async (data: FormData) => {
+    const res = await addInterest(data)
+    setResponse(res)
+  }
+
   return (
     <section
       id="interest"
@@ -42,18 +72,18 @@ export function InterestForm() {
           >
             Make sure you get your tickets
           </h2>
-          <form action={formAction}>
+          <form action={onSubmit}>
             <h3 className="text-lg font-semibold tracking-tight text-blue-900">
               Would you like to keep up to date?{' '}
               <span aria-hidden="true">&darr;</span>
             </h3>
-            {state?.successful && (
+            {response?.successful && (
               <p>
                 Thanks for your interest. We will get back to you when we have
                 more information.
               </p>
             )}
-            {state === null && (
+            {response === null && (
               <div className="flex items-center gap-12">
                 <input
                   type="email"
@@ -77,7 +107,7 @@ export function InterestForm() {
                 </div>
               </div>
             )}
-            {state?.successful === false && (
+            {response?.successful === false && (
               <h1>
                 We had a problem adding your email.
                 <br />
