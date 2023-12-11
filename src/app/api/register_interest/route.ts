@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server'
-export const dynamic = 'force-dynamic' // defaults to force-static
+// export const dynamic = 'force-dynamic' // defaults to force-static
 type ClientResponse = {
   status: number
   body: null | object
