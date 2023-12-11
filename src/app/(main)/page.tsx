@@ -4,13 +4,14 @@ import { Schedule } from '@/components/Schedule'
 // import { Speakers } from '@/components/Speakers'
 import { Speakers } from '@/components/prelaunch/Speakers'
 import { Sponsors } from '@/components/Sponsors'
-import { Tito } from '@/components/Tito'
+import { TitoInterest } from '@/components/prelaunch/TitoInterest'
 
 export default function Home() {
   return (
     <>
       <Hero />
       {/* <Tito eventName="elixirbytes/testconfoss" /> */}
+      <TitoInterest eventName="eexconf/zagreb-2024" />
       <Speakers />
       {/* <Schedule /> */}
       {/* <Sponsors /> */}
